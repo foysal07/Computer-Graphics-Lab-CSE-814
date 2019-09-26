@@ -1,0 +1,61 @@
+<!--
+Creation date : 28/09/2019
+Created By    : Foysal Hossain(16701007)
+Copyright Foysal Hossain
+-->
+<!DOCTYPE html>
+<html>
+<body style:"text-align:center;">
+<p style="text-align:center;"><input type="button" onclick="swap()" value="Do Swapping">
+</p>
+<table border="1" align="center">
+	<tr>
+		<td>Entry</td>
+		<td>24-bit value</td>
+		<td>Visible color</td>
+	</tr>
+	<script>
+
+	let entry = new Array(256);
+	let rgb = new Array(256);
+	for(let i = 0; i<256;i++){
+		rgb[i] = new Array(3);
+		document.write("<tr id='tr" + i + "'></tr>");
+	}
+	
+	for(let i=0;i<256;i++){		
+		rgb[i][0] = Math.trunc(Math.random() * 255);
+		rgb[i][1] = Math.trunc(Math.random() * 255);
+		rgb[i][2] = Math.trunc(Math.random() * 255);
+		setEntry(i,rgb);		
+	}
+	function swap(){	
+		for(let i=0;i<256;i++){	
+			let x = rgb[i][0];
+			rgb[i][0] = rgb[i][1];
+			rgb[i][1] = x;
+			setEntry(i,rgb);		
+		}	
+	}
+
+	function setEntry(i,rgb){
+		entry[i] = 	toBinary(rgb[i][0])+toBinary(rgb[i][1])+toBinary(rgb[i][2]);	
+
+		document.getElementById('tr' + i).innerHTML = "<td>"+i+"</td>"+"<td>"+entry[i]+"</td>"+
+		"<td style='background: #"+toHexa(rgb[i][0])+toHexa(rgb[i][1])+toHexa(rgb[i][2])+";'></td></tr>";
+	}	
+	
+	function toBinary(val) {
+        let num = val.toString(2);
+        return "00000000".substr(num.length) + num;
+    }
+
+    function toHexa(val) {
+        let num = val.toString(16);
+        return "00".substr(num.length) + num;
+    }	
+
+	</script>
+</table>
+</body>
+</html>

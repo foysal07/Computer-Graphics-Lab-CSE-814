@@ -1,0 +1,49 @@
+<!--
+Creation date : 28/09/2019
+Created By    : Foysal Hossain(16701007)
+Copyright Foysal Hossain
+-->
+
+<!DOCTYPE html>
+<html>
+<body>
+<form id="frm1" action="/action_page.php">
+X : <input type="number" name="x"> Y : <input type="number" name="y">
+tx : <input type="number" name="tx"> ty : <input type="number" name="ty">
+<input type="button" onclick="myFunction()" value="Translate the point">
+</form>
+<canvas id="myCanvas" width="1200" height="600" style="border:1px solid #d3d3d3;"></canvas>
+
+<script>
+var canvas = document.getElementById("myCanvas");
+var val = document.getElementById("frm1");
+context = canvas.getContext("2d");
+
+function myFunction() {	
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	context.beginPath();
+	context.moveTo(0,canvas.height/2);
+	context.lineTo(canvas.width,canvas.height/2);
+	context.stroke();
+	context.beginPath();
+	context.moveTo(canvas.width/2,0);
+	context.lineTo(canvas.height,canvas.width/2);
+	context.stroke();	
+	var a = Number(val.elements["x"].value);
+	var b = Number(val.elements["y"].value);	
+	var tx = Number(val.elements["tx"].value);
+	var ty = Number(val.elements["ty"].value);
+	drawpoint(canvas,canvas.width/2+a,canvas.height/2-b); 
+	a = a + tx;
+	b = b + ty;
+	drawpoint(canvas,canvas.width/2+a,canvas.height/2-b); 	
+}
+function drawpoint(canvas,a,b){
+	context.beginPath();
+    context.rect(a-3,b-3,6,6);
+	context.fillRect(a-3,b-3,6,6);
+	context.stroke();	
+}
+</script>
+</body>
+</html>

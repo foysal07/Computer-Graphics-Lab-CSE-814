@@ -1,0 +1,46 @@
+<!--
+Creation date : 28/09/2019
+Created By    : Foysal Hossain(16701007)
+Copyright Foysal Hossain
+-->
+<!DOCTYPE html>
+<html>
+<body style:"text-align:left;">
+<table border="1" align="center">
+	<tr>
+		<td>Entry No</td>
+		<td>24-bit value</td>
+		<td>Visible color</td>
+	</tr>
+	<script>
+	let entry = new Array(256);
+	let rgb = new Array(3);
+	
+	for(let i=0;i<256;i++){
+		rgb[0] = rgb[1] = rgb[2] = i;
+		setEntry(i,rgb);		
+	}
+	
+	function setEntry(i,rgb){
+		entry[i] = 	toBinary(rgb[0])+
+					toBinary(rgb[1])+
+					toBinary(rgb[2]);						
+		
+		document.write("<tr>"+"<td>"+i+"</td>"+"<td>"+entry[i]+"</td>"+
+		"<td style='background: #"+toHexa(rgb[0])
+								+toHexa(rgb[1])
+								+toHexa(rgb[2])+ ";'></td>");
+	}		
+	function toBinary(val) {
+        let num = val.toString(2);
+        return "00000000".substr(num.length) + num;
+    }
+
+    function toHexa(val) {
+        let num = val.toString(16);
+        return "00".substr(num.length) + num;
+    }	
+	</script>
+</table>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!--
+Creation date : 28/09/2019
+Created By    : Foysal Hossain(16701007)
+Copyright Foysal Hossain
+-->
+<!DOCTYPE html>
+<html>
+<body style:"text-align:center;">
+
+<form id="frm1" action="/action_page.php">
+<input type="button" onclick="makeComplement()" value="See true color">
+</form>
+<canvas id="myCanvas" width="800" height="800" style="border:1px solid #d3d3d3;"></canvas>
+
+<script>
+	var canvas = document.getElementById("myCanvas");
+	context = canvas.getContext("2d");
+	context.clearRect(0, 0, canvas.width, canvas.height);
+
+	let entry = new Array(256);
+	let rgb = new Array(256);
+	
+	for(let i = 0; i<256;i++){
+		rgb[i] = new Array(3);
+	}	
+	
+	for(let k=0;k<256;k++){			
+		//Initializing the lookup table
+		rgb[k][0] = Math.trunc(Math.random() * 255);
+		rgb[k][1] = Math.trunc(Math.random() * 255);
+		rgb[k][2] = Math.trunc(Math.random() * 255);			
+	}
+	
+	let k = 0;	
+	for(let i=0;i<16;i++){		
+		for(let j=0;j<16;j++){					
+			setPixel(i,j,rgb[k]); //Initialize the image
+			k+=1;
+		}
+	}	
+	function makeComplement(){	
+		context.clearRect(0, 0, canvas.width, canvas.height);
+		k=0;
+		for(let i=0;i<256;i++){	
+			rgb[i][0] = 255 - rgb[i][0];
+			rgb[i][1] = 255 - rgb[i][1];
+			rgb[i][2] = 255 - rgb[i][2];			
+		}
+		for(let i=0;i<16;i++){		
+			for(let j=0;j<16;j++){					
+				setPixel(i,j,rgb[k]);
+				k+=1;
+			}
+		}
+	}
+	function setPixel(i, j, rgb) {
+        context.fillStyle = '#' + toHexa(rgb[0])+toHexa(rgb[1])+toHexa(rgb[2])+'aa';
+		context.fillRect(i*(canvas.width/16),j*(canvas.height/16),canvas.width/16,canvas.height/16);
+    }
+    function toHexa(val) {
+        let num = val.toString(16);
+        return "00".substr(num.length) + num;
+    }
+	
+	</script>
+</table>
+</body>
+</html>

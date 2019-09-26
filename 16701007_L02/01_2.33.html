@@ -1,0 +1,67 @@
+<!--
+Creation date : 28/09/2019
+Created By    : Foysal Hossain(16701007)
+Copyright Foysal Hossain
+-->
+<!DOCTYPE html>
+<html>
+<body style:"text-align:center;">
+
+<form id="frm1" action="/action_page.php">
+X:<input type="number" name="x">Y:<input type="number" name="y">W:<input type="number" name="w">H:<input type="number" name="h">R:<input type="number" name="r">G:<input type="number" name="g">B:<input type="number" name="b">
+<input type="button" onclick="work()" value="Submit">
+</form>
+<canvas id="myCanvas" width="1200" height="600" style="border:1px solid #d3d3d3;"></canvas>
+<script>
+
+var canvas = document.getElementById("myCanvas");
+context = canvas.getContext("2d");
+
+function work() {
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	context.strokeStyle = '#cccccc';
+	var val = document.getElementById("frm1");
+	context.beginPath();
+	context.moveTo(0,canvas.height/2);
+	context.lineTo(canvas.width,canvas.height/2);
+	context.stroke();
+	context.beginPath();
+	context.moveTo(canvas.width/2,0);
+	context.lineTo(canvas.height,canvas.width/2);
+	context.stroke();	
+	var x = Number(val.elements["x"].value);
+	var y = Number(val.elements["y"].value);	
+	var w = Number(val.elements["w"].value);
+	var h = Number(val.elements["h"].value);
+	var r = Number(val.elements["r"].value);	
+	var g = Number(val.elements["g"].value);
+	var b = Number(val.elements["b"].value);	
+	
+	context.fillStyle = '#' + toHexa(r)+toHexa(g)+toHexa(b)+'aa';
+							
+	for (let j = y; j < y + h; j++) {
+		for (let i = x; i < x + w; i++) {
+			context.fillRect(canvas.width/2+i,canvas.height/2-j-1,1,1);
+		}
+	}
+    function toHexa(val) {
+        let num = val.toString(16);
+        return "00".substr(num.length) + num;
+    }	
+}
+window.onload = function () {
+	context.strokeStyle = '#cccccc';
+	context.beginPath();
+	context.moveTo(0,canvas.height/2);
+	context.lineTo(canvas.width,canvas.height/2);
+	context.stroke();
+	context.beginPath();
+	context.moveTo(canvas.width/2,0);
+	context.lineTo(canvas.height,canvas.width/2);
+	context.stroke();
+};
+
+</script>
+
+</body>
+</html>

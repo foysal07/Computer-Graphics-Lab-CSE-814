@@ -1,0 +1,93 @@
+<!--
+Creation date : 28/09/2019
+Created By    : Foysal Hossain(16701007)
+Copyright Foysal Hossain
+-->
+<!DOCTYPE html>
+<html>
+<body>
+<form id="frm1" action="/action_page.php">
+<input type="button" onclick="myFunction()" value="Scale the triangle">
+</form>
+<canvas id="myCanvas" width="1200" height="600" style="border:1px solid #d3d3d3;"></canvas>
+<script>
+var canvas = document.getElementById("myCanvas");
+var val = document.getElementById("frm1");
+context = canvas.getContext("2d");
+let abc = [
+	[0, 1, 5],
+	[0, 1, 2],
+	[1, 1, 1]
+];
+function myFunction() {	
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	context.beginPath();
+	context.moveTo(0,canvas.height/2);
+	context.lineTo(canvas.width,canvas.height/2);
+	context.stroke();
+	context.beginPath();
+	context.moveTo(canvas.width/2,0);
+	context.lineTo(canvas.height,canvas.width/2);
+	context.stroke();
+	context.beginPath();
+	context.moveTo(canvas.width / 2 + abc[0][0] * 50, canvas.height / 2 - abc[1][0] * 50);
+	context.lineTo(canvas.width / 2 + abc[0][1] * 50, canvas.height / 2 - abc[1][1] * 50);
+	context.lineTo(canvas.width / 2 + abc[0][2] * 50, canvas.height / 2 - abc[1][2] * 50);
+	context.lineTo(canvas.width / 2 + abc[0][0] * 50, canvas.height / 2 - abc[1][0] * 50)
+	context.stroke();		
+	var factor = 2;
+	let scaledABC = makeScaled(abc, factor, [abc[0][2], abc[1][2]]);
+	context.beginPath();
+	context.moveTo(canvas.width / 2 + scaledABC[0][0] * 50, canvas.height / 2 - scaledABC[1][0] * 50);
+	context.lineTo(canvas.width / 2 + scaledABC[0][1] * 50, canvas.height / 2 - scaledABC[1][1] * 50);
+	context.lineTo(canvas.width / 2 + scaledABC[0][2] * 50, canvas.height / 2 - scaledABC[1][2] * 50);
+	context.fillStyle = '#1db44a';
+	context.fill();
+	
+	context.stroke();
+}
+function makeScaled(t, factor, about) {
+	let Tv = [
+		[1, 0, about[0]],
+		[0, 1, about[1]],
+		[0, 0, 1],
+	];
+	let T_v = [
+		[1, 0, -about[0]],
+		[0, 1, -about[1]],
+		[0, 0, 1],
+	];
+	let S = [
+		[factor, 0, 0],
+		[0, factor, 0],
+		[0, 0, 1]
+	];
+	return do_matrixDot(do_matrixDot(Tv, do_matrixDot(S, T_v)), abc);
+}
+function do_matrixDot(A, B) {
+	let result = new Array(A.length).fill(0).map(row => new Array(B[0].length).fill(0));
+	return result.map((row, i) => {
+		return row.map((val, j) => {
+			return A[i].reduce((sum, elm, k) => sum + (elm * B[k][j]), 0)
+		});
+	});
+}
+window.onload = function () {
+	context.beginPath();
+	context.moveTo(0,canvas.height/2);
+	context.lineTo(canvas.width,canvas.height/2);
+	context.stroke();
+	context.beginPath();
+	context.moveTo(canvas.width/2,0);
+	context.lineTo(canvas.height,canvas.width/2);
+	context.stroke();
+	context.beginPath();
+	context.moveTo(canvas.width / 2 + abc[0][0] * 50, canvas.height / 2 - abc[1][0] * 50);
+	context.lineTo(canvas.width / 2 + abc[0][1] * 50, canvas.height / 2 - abc[1][1] * 50);
+	context.lineTo(canvas.width / 2 + abc[0][2] * 50, canvas.height / 2 - abc[1][2] * 50);
+	context.lineTo(canvas.width / 2 + abc[0][0] * 50, canvas.height / 2 - abc[1][0] * 50)
+	context.stroke();	
+};
+</script>
+</body>
+</html>
